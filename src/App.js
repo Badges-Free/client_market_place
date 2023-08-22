@@ -1,13 +1,11 @@
 import React from 'react';
-
-import './App.css';
+import Header from './layout/Header'
 
 function App() {
   return (
-    <div className="App">
-      hello first app
-      <h1 className=' text-blue-800'> hello </h1>
-    </div>
+   <>
+    <Header/>
+   </>
   );
 }
 
