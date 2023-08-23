@@ -11,7 +11,8 @@ function Header() {
         <div className="w-[50%] flex items-center justify-center ">
           <input
             type="text"
-            className="md:w-[65%] bg-transparent border-[2px] py-1.5 px-2 outline-none rounded-md text-white"
+            placeholder="search..."
+            className="md:w-[65%] bg-transparent border-[2px] py-1.5 px-2 outline-none rounded-md text-white placeholder:text-white"
           />
         </div>
       ) : (
