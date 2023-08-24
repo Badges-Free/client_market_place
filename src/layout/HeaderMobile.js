@@ -1,16 +1,25 @@
-import React from 'react'
+import React from "react";
 import logo from "../image/logo192.png";
 
 function HeaderMobile() {
   return (
-    <div className='w-full px-5 py-2 pb-10 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-b-lg text-white flex flex-col gap-5 shadow-blue-100 shadow-xl'>
-        <img src={logo} alt="" width="50px"  />
-        <div className='flex flex-row gap-5 w-full'>
-             <input type='text' className=' rounded-lg py-2 px-3 outline-none text-gray-600 w-full ' placeholder='Search...'/>
-            
+    <div className="w-full px-5 py-3 pb-5 bg-gradient-to-r from-cyan-700 to-blue-600 rounded-b-lg text-white flex flex-col gap-5 shadow-blue-100 shadow-xl">
+      <div className=" flex justify-between items-center">
+        <img src={logo} alt="" width="50px" />
+        <div className="w-[25%] flex justify-end text-white uppercase font-[500] text-[12px] md:text-[16px]">
+          signin |  sigup
         </div>
+      </div>
+
+      <div className="flex flex-row gap-5 w-full">
+        <input
+          type="text"
+          className=" w-full bg-transparent border-[2px] py-1.5 px-2 outline-none rounded-md text-white placeholder:text-white "
+          placeholder="Search..."
+        />
+      </div>
     </div>
-  )
+  );
 }
 
-export default HeaderMobile
+export default HeaderMobile;

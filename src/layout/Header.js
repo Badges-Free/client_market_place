@@ -3,7 +3,7 @@ import logo from "../image/logo192.png";
 import { isMobile } from "react-device-detect";
 function Header() {
   return (
-    <div className="w-full px-5 py-3 bg-red-400 flex flex-row justify-between items-center">
+    <div className="w-full px-5 py-3 bg-gradient-to-r from-cyan-700 to-blue-600 flex flex-row justify-between items-center">
       <div className="w-[25%]">
         <img src={logo} alt="" width="50px" />
       </div>
