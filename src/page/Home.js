@@ -3,7 +3,7 @@ import Category from "../function/Category";
 
 function Home() {
   const { data, loading, error } = Category({
-    url: "http://localhost:8080/categories",
+    url: "https://seyhashop.onrender.com/categories",
   });
   if (loading) {
     return <div>Loading...</div>;
@@ -14,7 +14,7 @@ function Home() {
   }
   return (
     <div>
-      <div className="flex flex-row justify-between gap-2 min-w-full overflow-x-scroll no-scrollbar mt-5 px-5">
+      <div className="flex flex-row justify-between gap-2 min-w-full overflow-x-scroll mt-5 px-5">
         
         {data.map((category) => (
           <div key={category.id} className="w-[200vh]  h-fit bg-blue-400 text-[14px] md:text-[16px]">{category.name}</div>
