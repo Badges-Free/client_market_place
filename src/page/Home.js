@@ -14,10 +14,10 @@ function Home() {
   }
   return (
     <div>
-      <div className="flex flex-row justify-between gap-2 min-w-full overflow-x-scroll mt-5 px-5">
+      <div className="flex flex-row justify-between gap-2 min-w-full overflow-x-scroll no-scrollbar mt-5 px-5 pb-2.5 ">
         
         {data.map((category) => (
-          <div key={category.id} className="w-[200vh]  h-fit bg-blue-400 text-[14px] md:text-[16px]">{category.name}</div>
+          <div key={category.id} className=" w-[200vh]  h-fit bg-blue-400 capitalize text-[14px] md:text-[16px] px-4 py-2 rounded-[25px] text-white font-[400]">{category.name}</div>
         ))}
       </div>
     </div>
