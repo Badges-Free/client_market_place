@@ -7,7 +7,6 @@ import  Header from"./layout/Header";
 import {isMobile} from "react-device-detect";
 import HeaderMobile from "./layout/HeaderMobile";
 import { Route, Routes } from "react-router-dom";
-import CategoryProducts from "./page/CategoryProducts";
 import Cars from "./page/Cars";
 import Properties from "./page/Properties.js"
 import Footer from "./layout/Footer";
