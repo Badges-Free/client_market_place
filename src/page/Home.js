@@ -5,12 +5,14 @@ import ItemsList from "../component/menu/ItemsList";
 import axios from "axios";
 import ProductItem from "../component/Item/ProductItem";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Loading from "../component/loading/Loading";
+
 function Home() {
   const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     axios
       .get(`https://seyhashop.onrender.com/categories`)
@@ -21,6 +23,7 @@ function Home() {
         console.log(err);
       });
   }, []);
+
   const fetchProduct = () => {
     return axios
       .get(`https://seyhashop.onrender.com/products?_page=${page}&_limit=10`)
@@ -35,9 +38,18 @@ function Home() {
   };
 
   useEffect(() => {
-   fetchProduct();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // delay loading
+  const handleLoadMore = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      fetchProduct();
+    }, 1000);
+  };
 
   return (
     <div className="w-full 2xl:w-[1440px] 2xl:px-0 px-5 py-5 m-auto  ">
@@ -48,7 +60,7 @@ function Home() {
         <div className={isMobile ? "w-full " : "w-[80%] "}>
           <InfiniteScroll
             dataLength={product.length}
-            next={fetchProduct}
+            next={handleLoadMore}
             hasMore={hasMore}
           >
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -57,6 +69,10 @@ function Home() {
               ))}
             </div>
           </InfiniteScroll>
+
+          {
+            isLoading && <Loading/>
+          }
         </div>
       </div>
     </div>
