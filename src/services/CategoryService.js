@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function Category({ url }) {
+function CategoryService({ url }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,4 +21,4 @@ function Category({ url }) {
   return { data, loading, error };
 }
 
-export default Category;
+export default CategoryService;

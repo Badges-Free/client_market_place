@@ -6,16 +6,17 @@ import axios from "axios";
 import ProductItem from "../component/Item/ProductItem";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../component/loading/Loading";
-
+import {url} from'../config'
 function Home() {
   const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  
   useEffect(() => {
     axios
-      .get(`https://seyhashop.onrender.com/categories`)
+      .get(`${url}categories`)
       .then((result) => {
         setCategories(result.data);
       })
@@ -24,6 +25,7 @@ function Home() {
       });
   }, []);
 
+  // fetch product
   const fetchProduct = () => {
     return axios
       .get(`https://seyhashop.onrender.com/products?_page=${page}&_limit=10`)

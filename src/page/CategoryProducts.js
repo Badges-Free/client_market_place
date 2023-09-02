@@ -1,5 +1,5 @@
 import React from "react";
-import Category from "../function/Category";
+import Category from "../services/CategoryService";
 import { Link } from "react-router-dom";
 import Loading from"../component/loading/Loading"
 function CategoryProducts() {

@@ -10,6 +10,7 @@ import { Route, Routes } from "react-router-dom";
 import Cars from "./page/Cars";
 import Properties from "./page/Properties.js"
 import Footer from "./layout/Footer";
+import Computers from "./page/Computers";
 const   Home = lazy(()=> import("./page/Home") );
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={ <Home/>}/>
           <Route path="/cars&vichicales" element={ <Cars/>}/>
           <Route path="/properties" element={ <Properties/>}/>
+          <Route path="/computers" element={<Computers/>}/>
         </Routes>
        
       </Suspense>
