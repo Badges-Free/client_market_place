@@ -1,12 +1,13 @@
 import React from "react";
 import Category from "../function/Category";
 import { Link } from "react-router-dom";
+import Loading from "../image/dots_2.gif"
 function CategoryProducts() {
   const { data, loading, error } = Category({
     url: "https://seyhashop.onrender.com/categories",
   });
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><img src={Loading} alt="" width="20px"/></div>;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
