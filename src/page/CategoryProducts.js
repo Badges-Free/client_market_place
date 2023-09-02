@@ -13,7 +13,7 @@ function CategoryProducts() {
   }
   return (
     <>
-      <div className="flex flex-col gap-2 w-full mt-5 pb-2.5 ">
+      <div className="flex flex-col gap-2 w-full mt-3 pb-2.5 ">
         <h4 className="text-gray-700 capitalize font-[500]">
           categories product
         </h4>
