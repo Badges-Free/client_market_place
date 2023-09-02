@@ -7,7 +7,7 @@ function CategoryProducts() {
     url: "https://seyhashop.onrender.com/categories",
   });
   if (loading) {
-    return <div><img src={Loading} alt="" width="20px"/></div>;
+    return <div><img src={Loading} alt="" width="50px"/></div>;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
