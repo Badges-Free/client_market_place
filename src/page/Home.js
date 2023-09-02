@@ -7,7 +7,7 @@ import ProductItem from "../component/Item/ProductItem";
 import InfiniteScroll from "react-infinite-scroll-component";
 function Home() {
   const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
@@ -22,27 +22,22 @@ function Home() {
       });
   }, []);
 
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get(
-        `https://seyhashop.onrender.com/products?_page=${page}&_limit=10`
-      );
-
-      const newProducts = response.data;
-
-      if (newProducts.length === 0) {
-        setHasMore(false);
-      } else {
-        setProducts([...products, ...newProducts]);
+  const getProduct = async () => {
+  await  axios
+      .get(`https://seyhashop.onrender.com/products?_page=${page}&_limit=10`)
+      .then((result) => {
+       
+        setProduct([...product, ...result.data]);
         setPage(page + 1);
-      }
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
+        setHasMore(() => (result.data.length === 0 ? false : true));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
-    fetchProducts();
+    getProduct();
   }, []);
 
   return (
@@ -51,14 +46,20 @@ function Home() {
 
       <div className="w-full flex flex-row gap-5 ">
         {!isMobile ? <ItemsList data={categories} /> : ""}
-        <div className={isMobile ? "w-full " : "w-[80%] "}>
+        <div
+          className={
+            isMobile
+              ? "w-full "
+              : "w-[80%] "
+          }
+        >
           <InfiniteScroll
-            dataLength={products.length}
-            next={fetchProducts}
+            dataLength={product.length}
+            next={getProduct}
             hasMore={hasMore}
           >
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-              {products.map((item) => (
+              {product.map((item) => (
                 <ProductItem key={item.id} {...item} />
               ))}
             </div>

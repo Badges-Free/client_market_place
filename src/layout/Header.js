@@ -4,7 +4,7 @@ import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
 function Header() {
   return (
-    <div className="bg-gradient-to-r from-cyan-700 to-blue-600">
+    <div className="bg-gradient-to-r from-cyan-700 to-blue-600 sticky top-0 z-50">
       <div className="w-full 2xl:w-[1440px] m-auto h-[80px] 2xl:px-0 px-3 py-3  flex flex-row justify-between items-center">
         <div className="w-[25%] ">
           <Link to="/">
