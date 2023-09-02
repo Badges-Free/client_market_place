@@ -38,7 +38,7 @@ function ProductItem({
         <span className="absolute right-[15px] top-[15px] text-white">
           <ThreeDots />
         </span>
-        <div className={"h-[200px] relative"}>
+        <div className={"h-[130px] md:h-[200px] relative"}>
           {discount > 0 ? (
             <div className="absolute bg-red text-white left-0 px-[10px] py-[5px] rounded-tl-[10px] rounded-br-[10px]">
               {discount}% off
@@ -66,7 +66,7 @@ function ProductItem({
         </div>
         <div className="h-[30%] flex flex-col gap-2 px-[10px] pt-0 pb-[10px] ">
           <div className="flex flex-col gap-2">
-            <span className="text-default text-[16px] font-[400]">
+            <span className="text-default text-[12px] md:text-[16px] font-[400]">
               <Link to={`/computers/${id}`}>{title}</Link>
             </span>
             {category === 4 ? (
@@ -85,7 +85,7 @@ function ProductItem({
               ""
             )}
           </div>
-          <span className="w-[50%] text-default font-[500] text-[18px]">
+          <span className="w-[50%] text-default font-[500] text-[16px] md:text-[18px]">
             {price}$
           </span>
           <div className="flex flex-row justify-between items-center">
