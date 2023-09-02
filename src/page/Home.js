@@ -7,7 +7,7 @@ import ProductItem from "../component/Item/ProductItem";
 import InfiniteScroll from "react-infinite-scroll-component";
 function Home() {
   const [categories, setCategories] = useState([]);
-  const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
@@ -22,44 +22,43 @@ function Home() {
       });
   }, []);
 
-  const getProduct = () => {
-    axios
-      .get(`https://seyhashop.onrender.com/products?_page=${page}&_limit=10`)
-      .then((result) => {
-        console.log(result.data);
-        setProduct([...product, ...result.data]);
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(
+        `https://seyhashop.onrender.com/products?_page=${page}&_limit=10`
+      );
+
+      const newProducts = response.data;
+
+      if (newProducts.length === 0) {
+        setHasMore(false);
+      } else {
+        setProducts([...products, ...newProducts]);
         setPage(page + 1);
-        setHasMore(() => (result.data.length === 0 ? false : true));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
 
   useEffect(() => {
-    getProduct();
+    fetchProducts();
   }, []);
 
   return (
-    <div className="w-full 2xl:w-[1440px] 2xl:px-0 px-5 py-5 m-auto  bg-white  ">
+    <div className="w-full 2xl:w-[1440px] 2xl:px-0 px-5 py-5 m-auto  ">
       {isMobile ? <CategoryProducts /> : ""}
 
       <div className="w-full flex flex-row gap-5 ">
         {!isMobile ? <ItemsList data={categories} /> : ""}
-        <div
-          className={
-            isMobile
-              ? "w-full "
-              : "w-[80%] "
-          }
-        >
+        <div className={isMobile ? "w-full " : "w-[80%] "}>
           <InfiniteScroll
-            dataLength={product.length}
-            next={getProduct}
+            dataLength={products.length}
+            next={fetchProducts}
             hasMore={hasMore}
           >
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-              {product.map((item) => (
+              {products.map((item) => (
                 <ProductItem key={item.id} {...item} />
               ))}
             </div>

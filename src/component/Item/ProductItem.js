@@ -30,7 +30,7 @@ function ProductItem({
     };
     return (
         <>
-            <div className={"h-auto flex flex-col gap-1 relative  overflow-hidden rounded-[10px] hover:shadow-xl "}>
+            <div className={"h-auto bg-white flex flex-col gap-1 relative  overflow-hidden rounded-[10px] hover:shadow-xl "}>
                 <span className="absolute right-[15px] top-[15px] text-white">
                     <ThreeDots />
                 </span>
