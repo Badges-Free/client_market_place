@@ -93,8 +93,8 @@ function ProductItem({
               <span> {view}</span>
               <Eye />
             </span>
-            <span className="w-[50%] flex flex-row items-center justify-end gap-1 text-default text-[12px] capitalize">
-              <Map /> {location}
+            <span className="w-[50%] flex flex-row items-center justify-end gap-1 text-default  capitalize ">
+              <span className="text-[12px]">  <Map /></span> <span className="text-[8px]"> {location}</span> 
             </span>
           </div>
         </div>
