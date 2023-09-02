@@ -11,6 +11,12 @@ import Cars from "./page/Cars";
 import Properties from "./page/Properties.js"
 import Footer from "./layout/Footer";
 import Computers from "./page/Computers";
+import Fashions from "./page/Funitures";
+import Funitures from "./page/Funitures";
+import Pets from "./page/Pets";
+import Educations from "./page/Educations";
+import Toys from "./page/Toys";
+import Foods from "./page/Foods";
 const   Home = lazy(()=> import("./page/Home") );
 
 function App() {
@@ -30,6 +36,12 @@ function App() {
           <Route path="/cars&vichicales" element={ <Cars/>}/>
           <Route path="/properties" element={ <Properties/>}/>
           <Route path="/computers" element={<Computers/>}/>
+          <Route path="/fashions" element={<Fashions/>}/>
+          <Route path="/funitures" element={<Funitures/>}/>
+          <Route path="/pets" element={<Pets/>}/>
+          <Route path="/education" element={<Educations/>}/>
+          <Route path="/kid-toy" element={<Toys/>}/>
+          <Route path="/foods" element={<Foods/>}/>
         </Routes>
        
       </Suspense>
