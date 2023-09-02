@@ -11,7 +11,7 @@ import Cars from "./page/Cars";
 import Properties from "./page/Properties.js"
 import Footer from "./layout/Footer";
 import Computers from "./page/Computers";
-import Fashions from "./page/Funitures";
+import Fashions from "./page/Fashions";
 import Funitures from "./page/Funitures";
 import Pets from "./page/Pets";
 import Educations from "./page/Educations";

@@ -90,7 +90,7 @@ function ProductItem({
           </span>
           <div className="flex flex-row justify-between items-center">
             <span className="w-[50%] flex flex-row justify-start items-center gap-1 text-default  text-[12px]">
-              <span> {view}k</span>
+              <span> {view}</span>
               <Eye />
             </span>
             <span className="w-[50%] flex flex-row items-center justify-end gap-1 text-default text-[12px] capitalize">
