@@ -21,12 +21,10 @@ function Home() {
         console.log(err);
       });
   }, []);
-
-  const getProduct = async () => {
-  await  axios
+  const fetchProduct = () => {
+    return axios
       .get(`https://seyhashop.onrender.com/products?_page=${page}&_limit=10`)
       .then((result) => {
-       
         setProduct([...product, ...result.data]);
         setPage(page + 1);
         setHasMore(() => (result.data.length === 0 ? false : true));
@@ -37,7 +35,8 @@ function Home() {
   };
 
   useEffect(() => {
-    getProduct();
+   fetchProduct();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -46,16 +45,10 @@ function Home() {
 
       <div className="w-full flex flex-row gap-5 ">
         {!isMobile ? <ItemsList data={categories} /> : ""}
-        <div
-          className={
-            isMobile
-              ? "w-full "
-              : "w-[80%] "
-          }
-        >
+        <div className={isMobile ? "w-full " : "w-[80%] "}>
           <InfiniteScroll
             dataLength={product.length}
-            next={getProduct}
+            next={fetchProduct}
             hasMore={hasMore}
           >
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
