@@ -12,7 +12,7 @@ function HeaderMobile() {
 
           </Link>
           <div className="w-[25%] flex justify-end text-white uppercase font-[500] text-[12px] md:text-[16px]">
-            signin | sigup
+            signin | sigups
           </div>
         </div>
 
