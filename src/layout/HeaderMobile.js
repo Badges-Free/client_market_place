@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function HeaderMobile() {
   return (
-    <header className=" sticky top-0 z-50 bg-[blue] rounded-b-lg shadow-xl">
+    <div className=" sticky top-0 z-50 bg-[blue] rounded-b-lg shadow-xl">
       <div className="w-full 2xl:w-[1440px] m-auto px-5 py-3 pb-5  text-white flex flex-col gap-5 ">
         <div className=" flex justify-between items-center">
           <Link to="/">
@@ -24,7 +24,7 @@ function HeaderMobile() {
           />
         </div>
       </div>
-    </header>
+    </div>
   );
 }
 
