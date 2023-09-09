@@ -1,44 +1,44 @@
-import axios from "axios";
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProductItem from "../component/Item/ProductItem";
 import Loading from "../component/loading/Loading";
-
+import { ApiRequest } from "../ApiRequest";
 function Fashions() {
   const [product, setProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
+  // fetch product
+  const fetchProduct = () => {
+    try {
+      const responseData = ApiRequest(
+        "GET",
+        `products?categoryId=5&_page=${page}&_limit=10`
+      );
 
-    // fetch product
-    const fetchProduct = () => {
-        return axios
-          .get(`https://seyhashop.onrender.com/products?categoryId=5&_page=${page}&_limit=10`)
-          .then((result) => {
-            setProduct([...product, ...result.data]);
-            setPage(page + 1);
-            setHasMore(() => (result.data.length === 0 ? false : true));
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
-    
-      useEffect(() => {
-        fetchProduct();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []);
-    
-      // delay loading
-      const handleLoadMore = () => {
-        setIsLoading(true);
-        setTimeout(() => {
-          setIsLoading(false);
-          fetchProduct();
-        }, 1000);
-      };
+      setProduct([...product, ...responseData]);
+      setPage(page + 1);
+      setHasMore(() => (responseData.length === 0 ? false : true));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // delay loading
+  const handleLoadMore = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      fetchProduct();
+    }, 1000);
+  };
   return (
     <div className="w-full 2xl:w-[1440px] 2xl:px-0 px-5 py-5 m-auto  ">
       <div className={isMobile ? "w-full " : "w-[80%] "}>
