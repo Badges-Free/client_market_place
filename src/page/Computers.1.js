@@ -1,4 +1,3 @@
-// import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -6,7 +5,7 @@ import ProductItem from "../component/Item/ProductItem";
 import Loading from "../component/loading/Loading";
 import { ApiRequest } from "../ApiRequest";
 
-function Computers() {
+export function Computers() {
   const [product, setProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -58,5 +57,3 @@ function Computers() {
     </div>
   );
 }
-
-export default Computers;

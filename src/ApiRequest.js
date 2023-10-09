@@ -3,12 +3,12 @@ import axios from 'axios';
 import { url } from './config';
 const BASE_URL = url;
 
-export async function ApiRequest(method, endpoint, data = null) {
+export async function ApiRequest(method, endpoint, data = null, token) {
   try {
     const axiosInstance = axios.create({
       baseURL: BASE_URL,
       headers: {
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
         // Add any other headers you need
       },
     });
@@ -32,3 +32,25 @@ export async function ApiRequest(method, endpoint, data = null) {
     throw error;
   }
 }
+
+// export async function fetchApiData(method, endpoint, data = null) {
+//     try {
+//       const options = {
+//         method,
+//         headers: {
+//           'Content-Type': 'application/json',
+//           // Add any other headers you need
+//         },
+//         body: data ? JSON.stringify(data) : undefined,
+//       };
+  
+//       const response = await fetch(`${BASE_URL}/${endpoint}`, options);
+//       if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//       }
+//       const responseData = await response.json();
+//       return responseData;
+//     } catch (error) {
+//       throw error;
+//     }
+//   }
