@@ -7,13 +7,13 @@ const MyAccount = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [lastNameChangeDate, setLastNameChangeDate] = useState(null);
   const [messageUserName, setMessageUserName] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
+  // const [selectedDate, setSelectedDate] = useState(null);
   const [message, setMessage] = useState("");
   
   const name = useRef();
   const username = useRef();
   const gender = useRef();
-  const dob = useRef();
+  // const dob = useRef();
   const address = useRef();
   const email = useRef();
   const phone = useRef();
@@ -40,9 +40,9 @@ const MyAccount = () => {
     setSelectedOption(e.target.value);
   };
 
-  const handleDateChange = (updatedAt) => {
-    setSelectedDate(updatedAt);
-  };
+  // const handleDateChange = (updatedAt) => {
+  //   setSelectedDate(updatedAt);
+  // };
 
   const handlePhoneNumberInput = (e) => {
     const inputValue = e.target.value;
@@ -60,9 +60,9 @@ const MyAccount = () => {
     const newEmail = email.current.value;
     const newAddress = address.current.value;
 
-    const selectedDateTimeInCambodia = new Date(selectedDate);
-    selectedDateTimeInCambodia.setHours(selectedDateTimeInCambodia.getHours() + 7);
-    const formattedDate = now.toISOString();
+    // const selectedDateTimeInCambodia = new Date(selectedDate);
+    // selectedDateTimeInCambodia.setHours(selectedDateTimeInCambodia.getHours() + 7);
+    // const formattedDate = now.toISOString();
 
     try {
       const response = await fetch(`http://localhost:3001/users/${UserId}`, {
@@ -75,8 +75,8 @@ const MyAccount = () => {
           address: newAddress,
           email: newEmail,
           phone: phone.current.value,
-          dob: selectedDateTimeInCambodia.toISOString(),
-          updatedAt: formattedDate,
+          // dob: selectedDateTimeInCambodia.toISOString(),
+          // updatedAt: formattedDate,
         }),
       });
       const data = await response.json();

@@ -13,9 +13,6 @@ function Computers() {
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-
-
-
   useEffect(() => {
     // Define the URL to your server endpoint for fetching users
     const apiUrl = 'http://localhost:8080/api/v1/products'; // Replace with the correct URL
