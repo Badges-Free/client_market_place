@@ -1,15 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 // import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const MyAccount = () => {
   const [user, setUser] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("");
-  const [lastNameChangeDate, setLastNameChangeDate] = useState(null);
-  const [messageUserName, setMessageUserName] = useState("");
+ 
   // const [selectedDate, setSelectedDate] = useState(null);
-  const [message, setMessage] = useState("");
-  
+
   const name = useRef();
   const username = useRef();
   const gender = useRef();
@@ -18,114 +15,21 @@ const MyAccount = () => {
   const email = useRef();
   const phone = useRef();
 
-  const fetchApiData = async () => {
-    const requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    const UserId = sessionStorage.getItem("SIGNIN_INFO");
-    const response = await fetch(`http://localhost:3001/users?id=${UserId}`, requestOptions);
-    const data = await response.json();
-
-    setUser(data[0]);
-    setLastNameChangeDate(new Date(data[0].updatedAt));
-  };
-
-  useEffect(() => {
-    fetchApiData();
-  }, []);
-
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
-  };
-
-  // const handleDateChange = (updatedAt) => {
-  //   setSelectedDate(updatedAt);
-  // };
-
-  const handlePhoneNumberInput = (e) => {
-    const inputValue = e.target.value;
-    const numericValue = inputValue.replace(/[^0-9]/g, "");
-    phone.current.value = numericValue;
-  };
-
-  const handleGeneral = async (e) => {
-    e.preventDefault();
-    const UserId = sessionStorage.getItem("SIGNIN_INFO");
-    const now = new Date();
-
-    const newUserName = username.current.value;
-    const newName = name.current.value;
-    const newEmail = email.current.value;
-    const newAddress = address.current.value;
-
-    // const selectedDateTimeInCambodia = new Date(selectedDate);
-    // selectedDateTimeInCambodia.setHours(selectedDateTimeInCambodia.getHours() + 7);
-    // const formattedDate = now.toISOString();
-
-    try {
-      const response = await fetch(`http://localhost:3001/users/${UserId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: newName,
-          username: newUserName,
-          gender: selectedOption,
-          address: newAddress,
-          email: newEmail,
-          phone: phone.current.value,
-          // dob: selectedDateTimeInCambodia.toISOString(),
-          // updatedAt: formattedDate,
-        }),
-      });
-      const data = await response.json();
-      setUser(data);
-      setLastNameChangeDate(now);
-    } catch (error) {
-      console.log(error);
-    }
-  }; //handle general end
-
-  //check username
-  const validateUsername = async (newUsername, UserId) => {
-    const usernameResponse = await fetch(`http://localhost:3001/users?username=${newUsername}`);
-    const existingUserName = await usernameResponse.json();
-  
-    if (existingUserName.length > 0 && existingUserName[0].id !== UserId) {
-      setMessageUserName( "Sorry, this username is already in use. Please choose another name.");
-    }
-    
-    const now = new Date();
-    const timeSinceLastChange = now - lastNameChangeDate;
-    const thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000;
-  
-    if (timeSinceLastChange < thirtyDaysInMillis) {
-      setMessage("You can only change your username once in 30 days.");
-    }
-    
-    return ""; // Return an empty string if validation is successful
-  };
   
 
-  const handleUsernameChange = async () => {
-    const UserId = sessionStorage.getItem("SIGNIN_INFO");
-    const newUserName = username.current.value;
 
-    const validationMessage = await validateUsername(newUserName, UserId);
-    setMessageUserName(validationMessage);
-  };
+
 
   return (
     <>
       <div className=" bg-white p-5 rounded-[10px] shadow-lg">
         <h1 className=" font-bold text-xl">General</h1>
-        <form onSubmit={handleGeneral}>
-          {message && (
+        <form >
+          {/* {message && (
             <div className="text-red text-sm ">
               <div>{message}</div>
             </div>
-          )}
+          )} */}
           <div className="grid grid-cols-6 gap-5 text-sm  pt-6">
             <div className="col-span-3  ">
               <label>Fullname</label>
@@ -149,21 +53,17 @@ const MyAccount = () => {
                 value={user.username}
                 ref={username}
                 onChange={(e) => setUser({ ...user, username: e.target.value })}
-                onBlur={handleUsernameChange}
+               
               />
-              {messageUserName && (
-                <div className="text-red text-xs ">
-                  <div>{messageUserName}</div>
-                </div>
-              )}
+           
             </div>
             <div className="col-span-3">
               <label>Gender</label>
               <select
                 id="selectBox"
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
-                value={selectedOption}
-                onChange={handleOptionChange}
+                value=""
+             
               >
                 <option value="">Select</option>
                 <option ref={gender} value="male">
@@ -218,7 +118,7 @@ const MyAccount = () => {
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Phone number"
                 ref={phone}
-                onChange={handlePhoneNumberInput}
+                
               />
             </div>
 
