@@ -5,12 +5,43 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import ProductItem from "../component/Item/ProductItem";
 import Loading from "../component/loading/Loading";
 import { ApiRequest } from "../ApiRequest";
+import axios from "axios";
 
 function Computers() {
   const [product, setProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+
+
+
+  useEffect(() => {
+    // Define the URL to your server endpoint for fetching users
+    const apiUrl = 'http://localhost:8080/api/v1/products'; // Replace with the correct URL
+
+    // Make a GET request to fetch users
+    axios
+      .get(apiUrl,{
+        withCredentials: true,
+      })
+      .then((response) => {
+       console.log(response.data)// Assuming the response data is an array of users
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }, []);
+
+// const fetch = async () => {
+//   try{
+//     const response = await ApiRequest("GET","/users");
+//     console.log(response.success)
+//   }catch(error){
+//     console.log(error)
+//   }
+// }
+
 
   const fetchProduct = async () => {
     try {
@@ -26,6 +57,7 @@ function Computers() {
   };
 
   useEffect(() => {
+    // fetch()
     fetchProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

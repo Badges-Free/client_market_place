@@ -2,11 +2,15 @@ import React from "react";
 import logo from "../image/logo192.png";
 import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
+import { useAuth } from "../utils/auth";
+import Profile from "../component/profile/Profile";
 function Header() {
+  const { user } = useAuth();
+
   return (
     <div className="bg-[#6c6cf0]  sticky top-0 z-50">
-      <div className="w-full 2xl:w-[1440px] m-auto h-[80px] 2xl:px-0 px-3 py-3  flex flex-row justify-between items-center">
-        <div className="w-[25%] ">
+      <div className="w-full xl:w-[1400px] m-auto h-[80px] 2xl:px-0 flex flex-row justify-between items-center">
+        <div className="w-[25%] flex justify-start">
           <Link to="/">
             <img src={logo} alt="" width="50px" />
           </Link>
@@ -22,9 +26,16 @@ function Header() {
         ) : (
           ""
         )}
-
+      
         <div className="w-[25%] flex justify-end text-white uppercase font-[500] text-[12px] md:text-[16px]">
-          signin | sigup
+          {user !== null && user !== undefined ? (
+           <Profile/>
+          ) : (
+            <div className="flex gap-3">
+              <Link to={"/signin"}> signin</Link> |{" "}
+              <Link to={"signup"}>signup </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

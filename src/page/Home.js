@@ -54,7 +54,7 @@ function Home() {
   };
 
   return (
-    <div className="w-full 2xl:w-[1440px] 2xl:px-0 px-5 py-5 m-auto  ">
+    <div className="w-full 2xl:px-0 px-5 py-5 m-auto  ">
       {isMobile ? <CategoryProducts /> : ""}
 
       <div className="w-full flex flex-row gap-5 ">

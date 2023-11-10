@@ -1,8 +1,8 @@
 
 
 const config = {
-    // url : "http://localhost:8080/",
- url : "https://seyhashop.onrender.com/"
+    url : "https://www-market-place.onrender.com/",
+//  url : "htpp://localhost:8080/"
 }
 
 module.exports = config;

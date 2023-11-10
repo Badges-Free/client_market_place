@@ -1,30 +1,29 @@
 // api.js
-import axios from 'axios';
-import { url } from './config';
+import axios from "axios";
+import { url } from "./config";
 const BASE_URL = url;
 
 export async function ApiRequest(method, endpoint, data = null, token) {
   try {
     const axiosInstance = axios.create({
-      baseURL: BASE_URL,
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        // Add any other headers you need
+      headers:{
+        Authorization: `Bearer ${token}`
       },
+      baseURL: BASE_URL,
     });
 
     let response;
 
-    if (method === 'GET') {
+    if (method === "GET") {
       response = await axiosInstance.get(endpoint);
-    } else if (method === 'POST') {
+    } else if (method === "POST") {
       response = await axiosInstance.post(endpoint, data);
-    } else if (method === 'PUT') {
+    } else if (method === "PUT") {
       response = await axiosInstance.put(endpoint, data);
-    } else if (method === 'DELETE') {
+    } else if (method === "DELETE") {
       response = await axiosInstance.delete(endpoint);
     } else {
-      throw new Error('Unsupported HTTP method');
+      throw new Error("Unsupported HTTP method");
     }
 
     return response.data;
@@ -43,7 +42,7 @@ export async function ApiRequest(method, endpoint, data = null, token) {
 //         },
 //         body: data ? JSON.stringify(data) : undefined,
 //       };
-  
+
 //       const response = await fetch(`${BASE_URL}/${endpoint}`, options);
 //       if (!response.ok) {
 //         throw new Error('Network response was not ok');
