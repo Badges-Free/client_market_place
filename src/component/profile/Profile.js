@@ -21,15 +21,15 @@ function Profile() {
   }, []);
   return (
     <>
-      <div className="w-[50px] h-[50px] rounded-full overflow-hidden border-[1px]">
+    
         <Link
           to={"/myaccount"}
-          className="w-full h-full object-cover  "
+          className="object-cover w-[50px] h-[50px] rounded-full overflow-hidden border-[1px] "
         >
           {}
           <img src={data} alt="" />
         </Link>
-      </div>
+      
     </>
   );
 }
