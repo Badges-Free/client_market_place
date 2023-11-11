@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ApiRequest } from "../../ApiRequest";
 import { useAuth } from "../../utils/auth";
+import{ url} from "../../config";
 
 function Profile() {
   const [data, setData] = useState([]);
@@ -27,7 +28,7 @@ function Profile() {
         className="object-cover w-[50px] h-[50px] rounded-full overflow-hidden border-[1px] "
       >
         {}
-        <img src={data} alt="" />
+        <img src={url+"uploads/"+data} alt="" />
       </Link>
     </>
   );
