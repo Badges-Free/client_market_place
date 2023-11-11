@@ -7,16 +7,51 @@ import { useNavigate } from "react-router-dom";
 
 const MyAccount = () => {
   const auth = useAuth();
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
+  const [username, setUsername] = useState("");
+  const [profile, setProfile] = useState(null); // added file state
+  const [gender, setGender] = useState("");
+  const [birth_of_date, setBirthOfDate] = useState("");
+  const [address, setAddress] = useState("");
+  const [map, setMap] = useState("");
+  const [phone, setPhone] = useState("");
   const navigate = useNavigate();
+
   const fetchUser = async () => {
     try {
       const response = await ApiRequest("GET", "api/v1/me", null, auth.user);
+      setUsername(response.user.username);
       setUser(response.user);
-      if(response.error){
+      if (response.error) {
         localStorage.clear("");
-        navigate('/')
+        navigate("/");
       }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUpdate = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("profile", profile); // append the file
+      formData.append("gender", gender);
+      formData.append("birth_of_date", birth_of_date);
+      formData.append("address", address);
+      formData.append("map", map);
+      formData.append("phone", phone);
+
+      const response = await ApiRequest(
+        "PUT",
+        "api/v1/update",
+        formData,
+        auth.user,
+        {
+          "Content-Type": "multipart/form-data",
+        }
+      );
+      console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -24,21 +59,14 @@ const MyAccount = () => {
 
   useEffect(() => {
     fetchUser();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      {console.log(user)}
       <div className=" bg-white p-5 rounded-[10px] shadow-lg">
         <h1 className=" font-bold text-xl">General</h1>
         <form>
-          {/* {message && (
-            <div className="text-red text-sm ">
-              <div>{message}</div>
-            </div>
-          )} */}
           <div className="grid grid-cols-6 gap-5 text-sm  pt-6">
             <div className="col-span-3  ">
               <label>Fullname</label>
@@ -53,17 +81,20 @@ const MyAccount = () => {
             <div className="col-span-3">
               <label>Username</label>
               <input
-                readOnly
                 type="text"
                 id="username"
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full  px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Username"
-                value={user.username}
+                value={username}
+                onChange={e=> setUsername(e.target.value)}
               />
             </div>
             <div className="col-span-3">
               <label>Gender</label>
-              <select readOnly value={user.gender} className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue">
+              <select
+                value={user.gender}
+                className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
+              >
                 <option value="">Select</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -73,10 +104,17 @@ const MyAccount = () => {
               <label>Date of Birth</label>
 
               <input
-              
-                defaultValue="2023-11-12"
+                // defaultValue="2023-11-12"
                 type="date"
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
+              />
+            </div>
+            <div className="col-span-6">
+              <label>Profiel</label>
+              <input
+                class="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue block text-sm  cursor-pointer bg-gray-50 dark:text-gray-400 "
+                id="file_input"
+                type="file"
               />
             </div>
             <div className="col-span-6">
@@ -103,7 +141,7 @@ const MyAccount = () => {
             <div className="col-span-3">
               <label>Email</label>
               <input
-              readOnly
+                readOnly
                 type="email"
                 id="email"
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
@@ -124,7 +162,7 @@ const MyAccount = () => {
 
             <div className="col-span-6 text-right ">
               <button
-                type="submit"
+                onClick={() => handleUpdate()}
                 className=" text-[#fff] py-2 px-6 rounded-[5px] bg-[#0055FF] my-2"
               >
                 Save

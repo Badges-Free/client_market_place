@@ -7,6 +7,7 @@ import{ url} from "../../config";
 function Profile() {
   const [data, setData] = useState([]);
   const { user } = useAuth();
+  
   const fetchProfile = async () => {
     try {
       const response = await ApiRequest("GET", "api/v1/me", null, user);
