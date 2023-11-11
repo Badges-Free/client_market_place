@@ -28,7 +28,7 @@ function Header() {
         )}
       
         <div className="w-[25%] flex justify-end text-white uppercase font-[500] text-[12px] md:text-[16px]">
-          {console.log(user)}
+         
           {user !== null  ? (
            <Profile/>
           ) : (

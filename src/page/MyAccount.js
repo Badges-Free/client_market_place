@@ -9,9 +9,9 @@ const MyAccount = () => {
   const auth = useAuth();
   const [user, setUser] = useState({});
   const [username, setUsername] = useState("");
-  const [profile, setProfile] = useState(null); // added file state
+  const [profile, setProfile] = useState(""); // added file state
   const [gender, setGender] = useState("");
-  const [birth_of_date, setBirthOfDate] = useState("");
+  const [birth, setBirth] = useState("");
   const [address, setAddress] = useState("");
   const [map, setMap] = useState("");
   const [phone, setPhone] = useState("");
@@ -21,6 +21,12 @@ const MyAccount = () => {
     try {
       const response = await ApiRequest("GET", "api/v1/me", null, auth.user);
       setUsername(response.user.username);
+      setGender(response.user.gender);
+      setBirth(response.user.birth);
+   
+      setAddress(response.user.address);
+      setMap(response.user.map);
+      setPhone(response.user.phone);
       setUser(response.user);
       if (response.error) {
         localStorage.clear("");
@@ -31,13 +37,14 @@ const MyAccount = () => {
     }
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+
     try {
       const formData = new FormData();
       formData.append("username", username);
       formData.append("profile", profile); // append the file
       formData.append("gender", gender);
-      formData.append("birth_of_date", birth_of_date);
+      formData.append("birth", birth);
       formData.append("address", address);
       formData.append("map", map);
       formData.append("phone", phone);
@@ -46,10 +53,7 @@ const MyAccount = () => {
         "PUT",
         "api/v1/update",
         formData,
-        auth.user,
-        {
-          "Content-Type": "multipart/form-data",
-        }
+        auth.user
       );
       console.log(response);
     } catch (err) {
@@ -86,13 +90,14 @@ const MyAccount = () => {
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full  px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Username"
                 value={username}
-                onChange={e=> setUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="col-span-3">
               <label>Gender</label>
               <select
-                value={user.gender}
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
               >
                 <option value="">Select</option>
@@ -104,7 +109,8 @@ const MyAccount = () => {
               <label>Date of Birth</label>
 
               <input
-                // defaultValue="2023-11-12"
+                value={birth}
+                onChange={(e) => setBirth(e.target.value)}
                 type="date"
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
               />
@@ -112,9 +118,10 @@ const MyAccount = () => {
             <div className="col-span-6">
               <label>Profiel</label>
               <input
-                class="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue block text-sm  cursor-pointer bg-gray-50 dark:text-gray-400 "
+                className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue block text-sm  cursor-pointer bg-gray-50 dark:text-gray-400 "
                 id="file_input"
                 type="file"
+                onChange={(e) => setProfile(e.target.files[0])}
               />
             </div>
             <div className="col-span-6">
@@ -124,7 +131,8 @@ const MyAccount = () => {
                 id="address"
                 className=" h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Address"
-                value={user.address}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
             <div className="col-span-6">
@@ -134,7 +142,8 @@ const MyAccount = () => {
                 id="address"
                 className=" h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Address"
-                value={user.map}
+                value={map}
+                onChange={(e) => setMap(e.target.value)}
               />
             </div>
 
@@ -154,9 +163,10 @@ const MyAccount = () => {
               <label>Phone</label>
               <input
                 type="tel"
-                value={user.phone}
+                value={phone}
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Phone number"
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
 
