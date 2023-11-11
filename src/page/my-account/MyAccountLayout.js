@@ -11,7 +11,7 @@ const SettingMenu = [
     title: "ACCOUNT",
     options: [
       { name: "General", slug: "" },
-      { name: "Password & Security", slug: "password" },
+      { name: "Password&Security", slug: "password" },
     ],
   },
   {
@@ -33,19 +33,19 @@ const SettingMenu = [
 ];
 
 function MyAccountLayout() {
-  const {logout} = useAuth();
+  const { logout } = useAuth();
   return (
     <>
-      <main role="main" className=" mx-auto w-[1030px]  flex gap-5 py-5 ">
-        <div className="  bg-white shadow-lg rounded-[10px] h-[464px] w-[295px] p-5">
-          <h1 className="text-2xl h-8 font-semibold ">Settings</h1>
+      <main role="main" className=" mx-auto  flex flex-col md:flex-row gap-5 py-5 px-5 xl:px-0 ">
+        <div className=" flex items-center md:items-start md:flex-col overflow-scroll md:overflow-hidden bg-white shadow-lg rounded-[10px] h-fit w-full md:w-[295px] md:p-5 p-2">
+          <h1 className="text-2xl h-8 font-semibold hidden md:flex">Settings</h1>
           {SettingMenu.map((item, index) => (
-            <div key={index}>
-              <div className="flex  my-2.5 ">
+            <div key={index} >
+              <div className="hidden md:flex  my-2.5 ">
                 <div className=" pt-1 pr-2"> {item.icon}</div>
                 <div className="font-medium uppercase">{item.title}</div>
               </div>
-              <ul className="flex flex-col gap-[5px]">
+              <ul className="flex flex-row md:flex-col gap-[5px]">
                 {item.options.map((option, index) => (
                   <NavLink
                     key={index}
@@ -65,12 +65,10 @@ function MyAccountLayout() {
                     </li>
                   </NavLink>
                 ))}
-                  <NavLink onClick={()=> logout()}>
-                      Logout
-                  </NavLink>
               </ul>
             </div>
           ))}
+          <NavLink onClick={() => logout()} >Logout</NavLink>
         </div>
         {/* other route */}
         <div className=" flex-auto ">

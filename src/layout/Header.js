@@ -8,7 +8,7 @@ function Header() {
   const { user } = useAuth();
 
   return (
-    <div className="bg-[#6c6cf0]  sticky top-0 z-50">
+    <div className="bg-[#6c6cf0]  sticky top-0 z-50 px-5 xl:px-0">
       <div className="w-full xl:w-[1400px] m-auto h-[80px] 2xl:px-0 flex flex-row justify-between items-center">
         <div className="w-[25%] flex justify-start">
           <Link to="/">
