@@ -28,7 +28,8 @@ function Header() {
         )}
       
         <div className="w-[25%] flex justify-end text-white uppercase font-[500] text-[12px] md:text-[16px]">
-          {user !== null && user !== undefined ? (
+          {console.log(user)}
+          {user !== null  ? (
            <Profile/>
           ) : (
             <div className="flex gap-3">

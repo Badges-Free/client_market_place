@@ -36,7 +36,7 @@ function MyAccountLayout() {
   const { logout } = useAuth();
   return (
     <>
-      <main role="main" className=" mx-auto  flex flex-col md:flex-row gap-5 py-5 px-5 xl:px-0 ">
+      <main role="main" className=" mx-auto  flex flex-col md:flex-row gap-5 py-5  xl:px-0 ">
         <div className=" flex items-center md:items-start md:flex-col overflow-scroll md:overflow-hidden bg-white shadow-lg rounded-[10px] h-fit w-full md:w-[295px] md:p-5 p-2">
           <h1 className="text-2xl h-8 font-semibold hidden md:flex">Settings</h1>
           {SettingMenu.map((item, index) => (

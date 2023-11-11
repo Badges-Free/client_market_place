@@ -10,6 +10,7 @@ function Profile() {
     try {
       const response = await ApiRequest("GET", "api/v1/me", null, user);
       setData(response.user.profile);
+      console.log(response.user.profile)
     } catch (err) {
       console.log(err);
     }

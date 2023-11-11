@@ -1,30 +1,39 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 // import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { ApiRequest } from "../ApiRequest";
+import { useAuth } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 const MyAccount = () => {
-  const [user, setUser] = useState([]);
- 
-  // const [selectedDate, setSelectedDate] = useState(null);
+  const auth = useAuth();
+  const [user, setUser] = useState("");
+  const navigate = useNavigate();
+  const fetchUser = async () => {
+    try {
+      const response = await ApiRequest("GET", "api/v1/me", null, auth.user);
+      setUser(response.user);
+      if(response.error){
+        localStorage.clear("");
+        navigate('/')
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  const name = useRef();
-  const username = useRef();
-  const gender = useRef();
-  // const dob = useRef();
-  const address = useRef();
-  const email = useRef();
-  const phone = useRef();
+  useEffect(() => {
+    fetchUser();
 
-  
-
-
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
+      {console.log(user)}
       <div className=" bg-white p-5 rounded-[10px] shadow-lg">
         <h1 className=" font-bold text-xl">General</h1>
-        <form >
+        <form>
           {/* {message && (
             <div className="text-red text-sm ">
               <div>{message}</div>
@@ -39,52 +48,36 @@ const MyAccount = () => {
                 className=" h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Name"
                 value={user.name}
-                ref={name}
-                onChange={(e) => setUser({ ...user, name: e.target.value })}
               />
             </div>
             <div className="col-span-3">
               <label>Username</label>
               <input
+                readOnly
                 type="text"
                 id="username"
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full  px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Username"
                 value={user.username}
-                ref={username}
-                onChange={(e) => setUser({ ...user, username: e.target.value })}
-               
               />
-           
             </div>
             <div className="col-span-3">
               <label>Gender</label>
-              <select
-                id="selectBox"
-                className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
-                value=""
-             
-              >
+              <select readOnly value={user.gender} className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue">
                 <option value="">Select</option>
-                <option ref={gender} value="male">
-                  Male
-                </option>
-                <option ref={gender} value="female">
-                  Female
-                </option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
               </select>
             </div>
             <div className="col-span-3 flex flex-col">
               <label>Date of Birth</label>
-              {/* <DatePicker
-                id="dob"
-                className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-[349px] px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
-                selected={selectedDate}
-                onChange={handleDateChange}
-                dateFormat="dd/MMM/yyyy"
-                ref={dob}
-              /> */}
-              <input type="date" className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"/>
+
+              <input
+              
+                defaultValue="2023-11-12"
+                type="date"
+                className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
+              />
             </div>
             <div className="col-span-6">
               <label>Address</label>
@@ -93,20 +86,29 @@ const MyAccount = () => {
                 id="address"
                 className=" h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Address"
-                ref={address}
+                value={user.address}
+              />
+            </div>
+            <div className="col-span-6">
+              <label>Map</label>
+              <input
+                type="text"
+                id="address"
+                className=" h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
+                placeholder="Address"
+                value={user.map}
               />
             </div>
 
             <div className="col-span-3">
               <label>Email</label>
               <input
+              readOnly
                 type="email"
                 id="email"
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="example@gmail.com"
                 value={user.email}
-                ref={email}
-                onChange={(e) => setUser({ ...user, email: e.target.value })}
               />
             </div>
 
@@ -114,11 +116,9 @@ const MyAccount = () => {
               <label>Phone</label>
               <input
                 type="tel"
-                id="phone"
+                value={user.phone}
                 className="h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Phone number"
-                ref={phone}
-                
               />
             </div>
 
