@@ -37,8 +37,8 @@ const MyAccount = () => {
     }
   };
 
-  const handleUpdate = async (e) => {
-
+  const handleUpdate = async () => {
+alert("hello")
     try {
       const formData = new FormData();
       formData.append("username", username);
@@ -70,7 +70,7 @@ const MyAccount = () => {
     <>
       <div className=" bg-white p-5 rounded-[10px] shadow-lg">
         <h1 className=" font-bold text-xl">General</h1>
-        <form>
+   
           <div className="grid grid-cols-6 gap-5 text-sm  pt-6">
             <div className="col-span-3  ">
               <label>Fullname</label>
@@ -179,7 +179,7 @@ const MyAccount = () => {
               </button>
             </div>
           </div>
-        </form>
+        
       </div>
     </>
   );
