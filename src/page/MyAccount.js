@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const MyAccount = () => {
   const auth = useAuth();
   const [user, setUser] = useState({});
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [profile, setProfile] = useState(""); // added file state
   const [gender, setGender] = useState("");
@@ -20,10 +21,10 @@ const MyAccount = () => {
   const fetchUser = async () => {
     try {
       const response = await ApiRequest("GET", "api/v1/me", null, auth.user);
+      setName(response.user.name);
       setUsername(response.user.username);
       setGender(response.user.gender);
       setBirth(response.user.birth);
-   
       setAddress(response.user.address);
       setMap(response.user.map);
       setPhone(response.user.phone);
@@ -41,6 +42,7 @@ const MyAccount = () => {
 alert("hello")
     try {
       const formData = new FormData();
+      formData.append("name", name);
       formData.append("username", username);
       formData.append("profile", profile); // append the file
       formData.append("gender", gender);
@@ -70,16 +72,16 @@ alert("hello")
     <>
       <div className=" bg-white p-5 rounded-[10px] shadow-lg">
         <h1 className=" font-bold text-xl">General</h1>
-   
           <div className="grid grid-cols-6 gap-5 text-sm  pt-6">
-            <div className="col-span-3  ">
+            <div className="col-span-3 ">
               <label>Fullname</label>
               <input
                 type="text"
                 id="name"
                 className=" h-[45px] bg-button-blue bg-opacity-5 appearance-none border-2 border-button-blue border-opacity-5 rounded-lg w-full px-4 text-default leading-tight focus:outline-none focus:bg-white focus:border-button-blue"
                 placeholder="Name"
-                value={user.name}
+                value={name}
+                onChange={(e)=> setName(e.target.value)}
               />
             </div>
             <div className="col-span-3">

@@ -36,16 +36,16 @@ function MyAccountLayout() {
   const { logout } = useAuth();
   return (
     <>
-      <main role="main" className=" mx-auto  flex flex-col md:flex-row gap-5 py-5  xl:px-0 ">
-        <div className=" flex items-center md:items-start md:flex-col overflow-scroll md:overflow-hidden bg-white shadow-lg rounded-[10px] h-fit w-full md:w-[295px] md:p-5 p-2">
+      <main role="main" className=" mx-auto  flex flex-col md:flex-row gap-5 py-5 px-5  xl:px-0 ">
+        <div className=" fixed left-0 top-[81px] md:top-0 md:relative flex items-center md:items-start md:flex-col overflow-scroll md:overflow-hidden bg-white shadow-lg rounded-[10px] h-fit w-full md:w-[295px] md:p-5 p-2">
           <h1 className="text-2xl h-8 font-semibold hidden md:flex">Settings</h1>
           {SettingMenu.map((item, index) => (
-            <div key={index} >
+            <div key={index} className="w-full" >
               <div className="hidden md:flex  my-2.5 ">
                 <div className=" pt-1 pr-2"> {item.icon}</div>
                 <div className="font-medium uppercase">{item.title}</div>
               </div>
-              <ul className="flex flex-row md:flex-col gap-[5px]">
+              <ul className="flex flex-row md:flex-col gap-[5px] w-full">
                 {item.options.map((option, index) => (
                   <NavLink
                     key={index}
@@ -71,7 +71,7 @@ function MyAccountLayout() {
           <NavLink onClick={() => logout()} >Logout</NavLink>
         </div>
         {/* other route */}
-        <div className=" flex-auto ">
+        <div className=" flex-auto mt-16 ">
           <Outlet />
         </div>
       </main>
