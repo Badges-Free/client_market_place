@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ApiRequest } from "../../ApiRequest";
 import { useAuth } from "../../utils/auth";
 
@@ -17,18 +17,37 @@ function SignIn() {
         email,
         password,
       });
-   
+      if (response.error) {
+        alert(response.error);
+        return;
+      }
       navigator("/");
-      
       login(response.token);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handleForgot = async () => {
+   
+    try {
+      const response = await ApiRequest("POST", "api/v1/password/forgot", {
+        email,
+      });
+      
+      if(response.success === true){
+        localStorage.setItem("resetToken", response.resetToken);
+        navigator(`/resetpassword/${response.resetToken}`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className=" w-full flex justify-center items-center h-[80vh]">
       <div className=" w-full max-w-xs">
-        <form className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+        <div className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Email
@@ -60,11 +79,14 @@ function SignIn() {
             >
               Sign In
             </button>
-            <Link className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+            <button
+              onClick={() => handleForgot()}
+              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            >
               Forgot Password?
-            </Link>
+            </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

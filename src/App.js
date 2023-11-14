@@ -23,6 +23,7 @@ import Page404 from "./page/Page404.js";
 import RequireAuth from "./utils/RequireAuth.js";
 import MyAccountRoute from "./page/my-account/MyAccountRoute.js";
 import RequireMyAcount from "./utils/RequireMyAccount.js";
+import ResetPassword from "./component/resetpassword/ResetPassword.js";
 
 const Home = lazy(() => import("./page/Home"));
 
@@ -58,6 +59,7 @@ function App() {
                  <MyAccountRoute />
               </RequireMyAcount>
             } />
+            <Route path="/resetpassword/:resettokencode" element={<ResetPassword/>}/>
             <Route path="*" element={<Page404 />} />
           </Routes>
         </Suspense>
